@@ -1,4 +1,7 @@
-﻿using ClosedXML.Excel;
+﻿/*
+ * Author: Caden Burritt
+ */
+using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Text.RegularExpressions;
@@ -12,15 +15,35 @@ public class Control()
 
     string filePath = @"C:\Users\cburr\Desktop\exelTester\Students.xlsx";
 
+    /// <summary>
+    /// Adds a Receipt to the list
+    /// </summary>
+    /// <param name="dept"></param>
+    /// <param name="date"></param>
+    /// <param name="description"></param>
+    /// <param name="totalCost"></param>
     public void AddReceipt(string dept, string date, string description, float totalCost)
     {
         Receipt receipt = new Receipt(dept, date, description, totalCost);
         receipts.Add(receipt);
     }
+    /// <summary>
+    /// Removes a receipt from the list
+    /// </summary>
+    /// <param name="receipt">Receipt to remove</param>
     public void RemoveReceipt(Receipt receipt)
     {
         receipts.Remove(receipt);
     }
+   
+    
+    
+    //Not implimented yet
+    
+    /// <summary>
+    /// Search all reciepts in list 
+    /// </summary>
+    /// <returns></returns>
     public List<Receipt> SearchAllReceipts()
     {
         List<Receipt> result = new List<Receipt>();
@@ -42,6 +65,7 @@ public class Control()
         return result;
 
     }
+   
     public List<Receipt> SearchReceiptsByDate(string date)
     {
         List<Receipt> result = new List<Receipt>();
@@ -116,10 +140,13 @@ public class Control()
         return result;
     }
 
+
+    //End not implimented
+
     /// <summary>
     /// Writes a Recipt to exel
     /// </summary>
-    /// <param name="receipt"></param>
+    /// <param name="receipt"> Receipt to write in excel</param>
     public  void WriteToExel(Receipt receipt)
     {
         
@@ -163,6 +190,9 @@ public class Control()
         Console.WriteLine("Excel file updated: " + filePath);
     }
 
+    /// <summary>
+    /// Collects all receipts in the excel sheet and adds them to the list
+    /// </summary>
     public void CollectExel()
     {
         if (!System.IO.File.Exists(filePath))
@@ -198,6 +228,11 @@ public class Control()
     }
 
 
+    /// <summary>
+    /// Reads a receipt from a picture for a date
+    /// </summary>
+    /// <param name="imagePath"> The path that the reader needs to read</param>
+    /// <returns></returns>
     public string ReadReceiptDate(string imagePath)
     {
         string tessDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tess");
@@ -245,9 +280,13 @@ public class Control()
         }
     }
 
-    
 
 
+    /// <summary>
+    /// Reads a receipt for a total
+    /// </summary>
+    /// <param name="imagePath">The path that the reader needs to read</param>
+    /// <returns></returns>
     public string ReadReceiptTotal(string imagePath)
     {
         string tessDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tess");
@@ -279,7 +318,9 @@ public class Control()
 
 
 
-
+    /// <summary>
+    /// Sorts the excel sheet by date
+    /// </summary>
     public void SortExelByDate()
     {
         // Load all receipts from Excel
@@ -314,6 +355,9 @@ public class Control()
         
     }
 
+    /// <summary>
+    /// sorts the excel sheet by total
+    /// </summary>
     public void SortExelByTotal()
     {
         receipts = receipts.OrderByDescending(r => r.totalCost).ToList();
@@ -324,7 +368,10 @@ public class Control()
         }
     }
 
-
+    /// <summary>
+    /// sorts the excel sheet by department
+    /// </summary>
+    /// <param name="primaryDept"></param>
     public void SortExelByDepartmentFirst(string primaryDept)
     {
         string[] deptOrder = {

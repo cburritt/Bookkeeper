@@ -1,4 +1,9 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+﻿/*
+ * Author: Caden Burritt
+ */
+
+
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;

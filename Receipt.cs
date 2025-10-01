@@ -1,4 +1,6 @@
-﻿
+﻿/*
+ * Author: Caden Burritt
+ */
 public class Receipt
 {
     public string dept;
