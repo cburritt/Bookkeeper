@@ -13,15 +13,27 @@ public class Control()
     public List<Receipt> receipts = new List<Receipt>();
 
 
-    string filePath = @"C:\Users\cburr\Desktop\exelTester\Students.xlsx";
+    string filePath;
+
+    public bool ChangeFilePath(string filePath)
+    {
+        
+        if (filePath.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase) || filePath.EndsWith(".xls", StringComparison.OrdinalIgnoreCase))
+        {
+            this.filePath = filePath;
+            return true;
+        }
+        return false;
+        
+    }
 
     /// <summary>
     /// Adds a Receipt to the list
     /// </summary>
-    /// <param name="dept"></param>
-    /// <param name="date"></param>
-    /// <param name="description"></param>
-    /// <param name="totalCost"></param>
+    /// <param name="dept">Department </param>
+    /// <param name="date">Date Purchased</param>
+    /// <param name="description">Light Description</param>
+    /// <param name="totalCost">Total cost post tax of the receipt</param>
     public void AddReceipt(string dept, string date, string description, float totalCost)
     {
         Receipt receipt = new Receipt(dept, date, description, totalCost);
@@ -65,7 +77,6 @@ public class Control()
         return result;
 
     }
-   
     public List<Receipt> SearchReceiptsByDate(string date)
     {
         List<Receipt> result = new List<Receipt>();
@@ -371,7 +382,7 @@ public class Control()
     /// <summary>
     /// sorts the excel sheet by department
     /// </summary>
-    /// <param name="primaryDept"></param>
+    /// <param name="primaryDept">First Dept to sort by</param>
     public void SortExelByDepartmentFirst(string primaryDept)
     {
         string[] deptOrder = {

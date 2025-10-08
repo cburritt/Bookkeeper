@@ -26,11 +26,11 @@ namespace Bookkeeper
         [STAThread]
         public static void Main(string[] args)
         {
-            
 
+            Console.WriteLine("Welcome To BookKeeping Buddy");
             while (true)
             {
-                Console.WriteLine("Welcome To BookKeeping Buddy");
+                Console.WriteLine("\n\n");
                 Console.WriteLine("What would you like to do");
                 Console.WriteLine("1) Add receipt to exel by picture");
                 Console.WriteLine("2) Add receipt Manually");
@@ -39,7 +39,7 @@ namespace Bookkeeper
                 Console.WriteLine("5) Exit Program");
                 Console.Write("1/2/3: ");
                 string input = Console.ReadLine();
-                Console.WriteLine("\n\n\n\n\n\n\n\n");
+                Console.WriteLine("\n\n");
 
                 if (input.Equals("5"))
                 {
@@ -53,6 +53,10 @@ namespace Bookkeeper
                 {
                     AddReceiptManual();
 
+                }
+                else if (input.Equals("3"))
+                {
+                    ChangeExelPath();
                 }
                 else if (input.Equals("4")) 
                 {
@@ -241,7 +245,8 @@ namespace Bookkeeper
         {
             while (true) 
             { 
-                Console.WriteLine("Sorting Methods: \nSort by Date: 1)\nSort by Total: 2)\nSort by Dept: 3)");
+                Console.WriteLine("Sorting Methods: \n1) Sort by Date: \n2) Sort by Total: \n3) Sort by Dept: ");
+                Console.Write("Selection: ");
                 string x = Console.ReadLine();
                 if (x.Equals("1"))
                 {
@@ -259,7 +264,6 @@ namespace Bookkeeper
                 }
                 else if (x.Equals("3"))
                 {
-                    // Define department options
                     string[] deptOptions = {
                         "Treasure",   // 1
                         "Social",     // 2
@@ -268,7 +272,7 @@ namespace Bookkeeper
                         "Historian",  // 5
                         "Chaplan",    // 6
                         "House"       // 7
-                };
+                    };
 
                     // Display menu
                     Console.WriteLine("Which department should come first?");
@@ -297,5 +301,49 @@ namespace Bookkeeper
             }
         }
 
+
+        public static void ChangeExelPath()
+        {
+            string filePath;
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Title = "Select a file";
+                dialog.Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls|All Files (*.*)|*.*";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Console.WriteLine("You selected: " + dialog.FileName);
+                    filePath = dialog.FileName;
+                }
+                else
+                {
+                    Console.WriteLine("No selection found....");
+                    return;
+                }
+                if (File.Exists(filePath))
+                {
+                    if (control.ChangeFilePath(filePath))
+                    {
+                        Console.WriteLine("File Exists...");
+                        Console.WriteLine("File being added...");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid File....");
+                        return;
+                    }
+
+
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Folder does not exist.....");
+                    return;
+                }
+            }
+            
+        }
     }
 }
